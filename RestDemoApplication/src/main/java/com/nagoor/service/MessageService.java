@@ -23,6 +23,14 @@ public class MessageService {
 		emf = injector.getInstance(EntityManagerFactory.class);
 	}
 	
+	public Messages updateMessage(Messages msg) {
+		em=emf.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(msg);
+		em.getTransaction().commit();
+		return msg;
+	}
+	
 	public Messages addMessage(Messages msg) {
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
