@@ -2,6 +2,7 @@ package com.nagoor.restful;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,9 +16,19 @@ import com.nagoor.service.MessageService;
 @Path("/messages")
 public class MessageResources {
 	MessageService ms=new MessageService();
+	
+	
+	@GET
+	@Path("/delete/{msgId}")
+	@Produces(MediaType.APPLICATION_XML)
+	public String delMsg(@PathParam("/delete/msgId") long id) {
+    return ms.deleteMessage(id);
+		
+	}
+	
 	@GET
 	@Path("/addmsg")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_XML)
 	public String addMsg() {
 		String msg="Hi Nagoor Khan";
 		return ms.addMessage(msg);
@@ -25,14 +36,14 @@ public class MessageResources {
 	
 	@GET
 	@Path("/getall")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_XML)
 	public List<Messages> getAllMsgs(){
 		return ms.getAllMessages();
 	}
 	
 	@GET
 	@Path("/{msgId}")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_XML)
 	public Messages getMsg(@PathParam("msgId") long id) {
 		return ms.getMessage(id);
 	}

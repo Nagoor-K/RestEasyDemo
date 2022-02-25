@@ -1,5 +1,6 @@
 package com.nagoor.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +27,22 @@ public class MessageService {
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
 		Messages m=new Messages();
-		m.setId(24);
 		m.setMsg(msg);
 		m.setDate("25");
 		em.persist(m);
 		em.getTransaction().commit();
 		return "Message added Succesfully";
+	}
+	
+	public String deleteMessage(long id) {
+		em=emf.createEntityManager();
+		em.getTransaction().begin();
+		Messages m=(Messages)em.find(Messages.class, id);
+		PrintWriter out=new PrintWriter(System.out);
+		out.print(m);
+		//em.remove(m);
+		em.getTransaction().commit();
+		return "Message deleted successfully";
 	}
 	
 	public Messages getMessage(long id) {
