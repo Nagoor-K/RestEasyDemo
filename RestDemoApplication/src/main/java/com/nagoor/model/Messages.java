@@ -2,12 +2,10 @@ package com.nagoor.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
-@XmlRootElement
 @Entity
 public class Messages {
 	@Id
-	private int id;
+	private long id;
 	private String msg;
 	private String date;
 	
@@ -21,9 +19,9 @@ public Messages(int id, String msg, String date) {
     this.date = date;
   }
 
-public int getId() {
+public long getId() {
   return id;}
-  public void setId(int id) {
+  public void setId(long id) {
   this.id = id;}
   public String getMsg() {
   return msg;}

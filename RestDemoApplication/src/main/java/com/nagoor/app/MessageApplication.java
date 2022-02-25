@@ -5,13 +5,13 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import com.nagoor.restful.CommentService;
-import com.nagoor.restful.MessageRestService;
+import com.nagoor.restful.MessageResources;
 
 public class MessageApplication extends Application {
 	private Set<Object> singletons = new HashSet<Object>();
 
 	public MessageApplication() {
-		singletons.add(new MessageRestService());
+		singletons.add(new MessageResources());
 		singletons.add(new CommentService());
 	}
 

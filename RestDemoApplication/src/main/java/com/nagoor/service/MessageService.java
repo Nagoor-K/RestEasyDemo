@@ -5,33 +5,55 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.nagoor.model.Messages;
+import com.nagoor.model.module.PersistenceModele;
 
 public class MessageService {
-	EntityManagerFactory emf=Persistence.createEntityManagerFactory("Eclipselink_JPA");
-	EntityManager em;
-	Messages m=new Messages();  
-	public Messages getMessage() {
-		m.setId(1);
-		m.setMsg("Hello Nagoor Khan");
-		m.setDate("24");
+	@Inject
+	private static EntityManagerFactory emf;
+	private static EntityManager em;
+
+	public MessageService() {
+		Injector injector = Guice.createInjector(new PersistenceModele());
+		emf = injector.getInstance(EntityManagerFactory.class);
+	}
+	
+	public String addMessage(String msg) {
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
+		Messages m=new Messages();
+		m.setId(24);
+		m.setMsg(msg);
+		m.setDate("25");
 		em.persist(m);
+		em.getTransaction().commit();
+		return "Message added Succesfully";
+	}
+	
+	public Messages getMessage(long id) {
+		em=emf.createEntityManager();
+		em.getTransaction().begin();
+		Messages m=new Messages();
+		m=em.find(Messages.class, id);
+		em.getTransaction().commit();
     return m;
 		
 	}
+	
+	
+	
 	public List<Messages> getAllMessages(){
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
-		List<Messages> al = new ArrayList<Messages>();
-		al.add(em.find(Messages.class, 1));
-		al.add(em.find(Messages.class, 2));
-
-		al.add(em.find(Messages.class, 3));
-
-		return al;
+		ArrayList<Messages> l=new ArrayList<>();
+		for(long i=0;i<5;i++) {
+			l.add(em.find(Messages.class, i));
+		}
+		em.getTransaction().commit();
+		return l;
 	}
 }
