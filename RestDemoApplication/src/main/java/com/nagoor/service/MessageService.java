@@ -23,15 +23,12 @@ public class MessageService {
 		emf = injector.getInstance(EntityManagerFactory.class);
 	}
 	
-	public String addMessage(String msg) {
+	public Messages addMessage(Messages msg) {
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
-		Messages m=new Messages();
-		m.setMsg(msg);
-		m.setDate("25");
-		em.persist(m);
+		em.merge(msg);
 		em.getTransaction().commit();
-		return "Message added Succesfully";
+		return msg;
 	}
 	
 	public String deleteMessage(long id) {
