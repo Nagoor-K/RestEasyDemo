@@ -67,10 +67,18 @@ public class MessageService {
 		
 	}
 	
+	public List<Messages> getListBySize(int size){
+		em=emf.createEntityManager();
+		em.getTransaction().begin();
+		Query q=em.createQuery("FROM Messages");
+		q.setMaxResults(size);
+		return q.getResultList();
+	}
+	
 	public List<Messages> getListByDate(String date){
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
-		return em.createQuery("FROM Messages m WHERE m.date='25'", Messages.class).getResultList();
+		return em.createQuery("FROM Messages m WHERE m.date='28'", Messages.class).getResultList();
 	}
 	
 	public List<Messages> getAllMessages(){

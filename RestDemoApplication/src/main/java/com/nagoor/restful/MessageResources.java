@@ -49,7 +49,10 @@ public class MessageResources {
 	@GET
 	@Path("/getall")
 	@Produces(MediaType.APPLICATION_XML)
-	public List<Messages> getAllMsgs(@QueryParam("date") String date){
+	public List<Messages> getAllMsgs(@QueryParam("date") String date,@QueryParam("size") int size){
+		if(size>0) {
+			return ms.getListBySize(size);
+		}
 		if(date!=null) {
 			return ms.getListByDate(date);
 		}
