@@ -6,8 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/comment")
-public class CommentService {
+@Path("/")
+public class CommentResources {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCmt() {
@@ -15,8 +15,8 @@ public class CommentService {
 	}
 	@GET
 	@Path("/{getc}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getAc(@PathParam("getc") String str) {
-		return "you gave : "+str;
+	@Produces(MediaType.APPLICATION_XML)
+	public String getAc(@PathParam("getc") long id) {
+		return "This is the comment number : "+id;
 	}
 }

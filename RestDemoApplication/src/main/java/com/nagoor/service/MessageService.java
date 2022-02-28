@@ -78,7 +78,7 @@ public class MessageService {
 	public List<Messages> getListByDate(String date){
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
-		return em.createQuery("FROM Messages m WHERE m.date='28'", Messages.class).getResultList();
+		return em.createQuery("FROM Messages m WHERE m.date=?1", Messages.class).setParameter(1, date).getResultList();
 	}
 	
 	public List<Messages> getAllMessages(){

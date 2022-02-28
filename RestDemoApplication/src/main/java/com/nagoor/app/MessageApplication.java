@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
-import com.nagoor.restful.CommentService;
+import com.nagoor.restful.CommentResources;
 import com.nagoor.restful.MessageResources;
 
 public class MessageApplication extends Application {
@@ -12,7 +12,7 @@ public class MessageApplication extends Application {
 
 	public MessageApplication() {
 		singletons.add(new MessageResources());
-		singletons.add(new CommentService());
+		singletons.add(new CommentResources());
 	}
 
 	@Override
