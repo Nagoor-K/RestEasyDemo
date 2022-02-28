@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.nagoor.model.Messages;
@@ -48,7 +49,10 @@ public class MessageResources {
 	@GET
 	@Path("/getall")
 	@Produces(MediaType.APPLICATION_XML)
-	public List<Messages> getAllMsgs(){
+	public List<Messages> getAllMsgs(@QueryParam("date") String date){
+		if(date!=null) {
+			return ms.getListByDate(date);
+		}
 		return ms.getAllMessages();
 	}
 	

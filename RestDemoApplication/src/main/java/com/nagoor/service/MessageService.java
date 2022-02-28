@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -66,13 +67,19 @@ public class MessageService {
 		
 	}
 	
-	
+	public List<Messages> getListByDate(String date){
+		em=emf.createEntityManager();
+		em.getTransaction().begin();
+		return em.createQuery("FROM Messages m WHERE m.date='25'", Messages.class).getResultList();
+	}
 	
 	public List<Messages> getAllMessages(){
 		em=emf.createEntityManager();
 		em.getTransaction().begin();
 		ArrayList<Messages> l=new ArrayList<>();
-		for(long i=0;i<5;i++) {
+		Query query=em.createQuery("SELECT count(*) FROM Messages");
+		long count=(long) query.getSingleResult();
+		for(long i=0;i<count;i++) {
 			l.add(em.find(Messages.class, i));
 		}
 		em.getTransaction().commit();
