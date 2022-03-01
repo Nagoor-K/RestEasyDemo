@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.nagoor.app.exceptions.DataNotFoundEception;
 import com.nagoor.model.Messages;
 import com.nagoor.model.module.PersistenceModele;
 
@@ -59,8 +60,9 @@ public class MessageService {
 		em.getTransaction().begin();
 		Messages m=new Messages();
 		m=em.find(Messages.class, id);
-		System.out.println(m);
-
+		if(m==null) {
+			throw new DataNotFoundEception("The Message for the message ID "+id+" is not Found");
+		}
 		em.getTransaction().commit();
 		em.close();
     return m;
