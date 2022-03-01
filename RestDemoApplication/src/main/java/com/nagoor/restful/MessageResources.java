@@ -1,5 +1,6 @@
 package com.nagoor.restful;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -11,7 +12,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import com.nagoor.model.Messages;
 import com.nagoor.service.MessageService;
@@ -40,8 +44,13 @@ public class MessageResources {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
-	public Messages addMsg(Messages msg) {
-		return ms.addMessage(msg);
+	public Response addMsg(Messages msg, @Context UriInfo urinfo) {
+		Messages newMsg=ms.addMessage(msg);
+		String newId=String.valueOf(newMsg.getId());
+		URI uri=urinfo.getAbsolutePathBuilder().path(newId).build();
+		return Response.created(uri)
+				.entity(newMsg)
+				.build();
 	}
 	
 

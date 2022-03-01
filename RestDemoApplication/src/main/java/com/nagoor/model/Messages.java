@@ -16,8 +16,6 @@ public class Messages {
 	private long id;
 	private String msg;
 	private String date;
-	@OneToMany
-	private List<Comments> comments;
 	
 public Messages() {
     super();
