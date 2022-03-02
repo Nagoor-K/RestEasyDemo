@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
@@ -20,6 +21,9 @@ public class Messages {
 public Messages() {
     super();
   }
+
+
+
 public Messages(int id, String msg, String date) {
     super();
     this.id = id;
@@ -40,6 +44,5 @@ public long getId() {
   public void setDate(String date) {
   this.date = date;}
 @Override public String toString(){return "Messages [id=" + id + ", msg=" + msg + ", date=" + date + "]";}
-	
 	
 }
