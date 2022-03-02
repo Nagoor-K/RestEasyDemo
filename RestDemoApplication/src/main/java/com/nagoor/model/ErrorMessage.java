@@ -4,35 +4,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ErrorMessage {
-	private int errorcode;
-	private String errormsg;
-	private String expl;
+	private String emsg;
+	private int ecode;
+	private String descrption;
 	
-	public ErrorMessage() {
-		
-	}
 	
-  public ErrorMessage(int errorcode, String errormsg, String expl) {
+	
+  public ErrorMessage() {
     super();
-    this.errorcode = errorcode;
-    this.errormsg = errormsg;
-    this.expl = expl;
   }
-public int getErrorcode() {
-return errorcode;}
-public void setErrorcode(int errorcode) {
-this.errorcode = errorcode;}
-public String getErrormsg() {
-return errormsg;}
-public void setErrormsg(String errormsg) {
-this.errormsg = errormsg;}
-public String getExpl() {
-return expl;}
-public void setExpl(String expl) {
-this.expl = expl;}
   
   
+public ErrorMessage(String emsg,int ecode,String descrption){super();this.emsg=emsg;this.ecode=ecode;this.descrption=descrption;}
+
+
+public String getEmsg() {
+  return emsg;}
+  public void setEmsg(String emsg) {
+  this.emsg = emsg;}
+  public int getEcode() {
+  return ecode;}
+  public void setEcode(int ecode) {
+  this.ecode = ecode;}
+  public String getDescrption() {
+  return descrption;}
+  public void setDescrption(String descrption) {
+  this.descrption = descrption;}
 	
 	
 }
-

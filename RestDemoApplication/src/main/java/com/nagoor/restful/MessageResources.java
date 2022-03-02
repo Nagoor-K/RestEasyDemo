@@ -12,11 +12,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import com.nagoor.model.ErrorMessage;
 import com.nagoor.model.Messages;
 import com.nagoor.service.MessageService;
 
@@ -72,7 +75,15 @@ public class MessageResources {
 	@Path("/{msgId}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Messages getMsg(@PathParam("msgId") long id) {
-		return ms.getMessage(id);
+		ErrorMessage e=new ErrorMessage("Not Found", 404, "https:resrDemoApplicationNotFound");
+		Response response=Response.status(Status.NOT_FOUND)
+				.entity(e)
+				.build();
+		Messages m=ms.getMessage(id);
+		if(m==null) {
+			throw new WebApplicationException(response);
+		}
+		return m;
 	}
 	
 	@Path("/{msgId}/comments")
