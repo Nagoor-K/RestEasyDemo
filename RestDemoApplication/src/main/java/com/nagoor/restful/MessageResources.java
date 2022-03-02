@@ -60,7 +60,7 @@ public class MessageResources {
 	
 	@GET
 	@Path("/getall")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(value = {MediaType.APPLICATION_XML,MediaType.TEXT_PLAIN})
 	public List<Messages> getAllMsgs(@QueryParam("date") String date,@QueryParam("size") int size){
 		if(size>0) {
 			return ms.getListBySize(size);
